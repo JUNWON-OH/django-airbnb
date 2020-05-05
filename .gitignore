@@ -136,15 +136,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-<<<<<<< HEAD
 Pipfile.lock
 Pipfile
-=======
-
-Pipfile
-Pipfile.lock
 .vscode/
-.vscode/settings.json
-Pipfile
-Pipfile.lock
->>>>>>> 185ba01fc532df98950d743eb5311cbb03442563
