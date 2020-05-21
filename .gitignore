@@ -143,3 +143,5 @@ Pipfile
 Pipfile
 Pipfile.lock
 .migrations/
+.uploads/
+uploads/
