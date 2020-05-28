@@ -4,7 +4,7 @@ from rooms.models import Amenity
 
 class Command(BaseCommand):
 
-    help = "This command tells me love me"
+    help = "This command creates amenities"
 
     def handle(self, *args, **options):
         amenities = [
