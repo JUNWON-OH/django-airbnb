@@ -21,6 +21,18 @@ class RoomDetail(DetailView):
 
     model = models.Room
 
+    """
+    from django.http import Http404
+    from django.shortcuts import render
+
+    def room_detail(request, pk):
+        try:
+            room = models.Room.objects.get(pk=pk)
+            return render(request, "rooms/room_detail.html", {"room": room})
+        except models.Room.DoesNotExist:
+            raise Http404()
+    """
+
 
 class SearchView(View):
     def get(self, request):
@@ -181,16 +193,3 @@ class SearchView(View):
         request, "rooms/room_search.html", {**form, **choices, "rooms": rooms},
     )
     """
-
-
-"""
-from django.http import Http404
-from django.shortcuts import render
-
-def room_detail(request, pk):
-    try:
-        room = models.Room.objects.get(pk=pk)
-        return render(request, "rooms/room_detail.html", {"room": room})
-    except models.Room.DoesNotExist:
-        raise Http404()
-"""
