@@ -1,4 +1,5 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.shortcuts import render
 from . import models
 
 # Create your views here.
@@ -11,6 +12,29 @@ class Homeview(ListView):
     ordering = "created"
     context_object_name = "rooms"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+
+class RoomDetail(DetailView):
+
+    """ Room Detail Definition """
+
+    model = models.Room
+
+
+def search(request):
+    city = request.GET.get("city")
+    city = str.capitalize(city)
+
+    return render(request, "rooms/room_search.html", {"city": city})
+
+
+"""
+from django.http import Http404
+from django.shortcuts import render
+
+def room_detail(request, pk):
+    try:
+        room = models.Room.objects.get(pk=pk)
+        return render(request, "rooms/room_detail.html", {"room": room})
+    except models.Room.DoesNotExist:
+        raise Http404()
+"""
