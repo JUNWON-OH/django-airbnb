@@ -5,7 +5,7 @@ from django_countries import countries
 from . import models, forms
 
 # Create your views here.
-class Homeview(ListView):
+class HomeView(ListView):
     """ HomeView Definition """
 
     model = models.Room
