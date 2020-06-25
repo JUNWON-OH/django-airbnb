@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from . import models
 
 
@@ -21,19 +22,14 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(forms.ModelForm):
-    class Meta:
-        model = models.User
-        fields = ("first_name", "last_name", "email")
+    """
+    username = forms.EmailField(label="Email")
+    """
 
     """
     first_name = forms.CharField(max_length=80)
     last_name = forms.CharField(max_length=80)
     email = forms.EmailField()
-    """
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
-
-    """
     def clean_email(self):
         email = self.cleaned_data.get("email")
         try:
@@ -41,18 +37,6 @@ class SignUpForm(forms.ModelForm):
             raise forms.ValidationError("User already exists with that email")
         except models.User.DoesNotExist:
             return email
-    """
-
-    def clean_password1(self):
-        password = self.cleaned_data.get("password")
-        password1 = self.cleaned_data.get("password1")
-
-        if password != password1:
-            raise forms.ValidationError("Password confirmation does not match")
-        else:
-            return password
-
-    """
     def save(self):
         first_name = self.cleaned_data.get("first_name")
         last_name = self.cleaned_data.get("last_name")
@@ -63,6 +47,22 @@ class SignUpForm(forms.ModelForm):
         user.last_name = last_name
         user.save()
     """
+
+    class Meta:
+        model = models.User
+        fields = ("first_name", "last_name", "email")
+
+    password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+
+    def clean_password1(self):
+        password = self.cleaned_data.get("password")
+        password1 = self.cleaned_data.get("password1")
+
+        if password != password1:
+            raise forms.ValidationError("Password confirmation does not match")
+        else:
+            return password
 
     def save(self, *args, **kwargs):
         email = self.cleaned_data.get("email")
